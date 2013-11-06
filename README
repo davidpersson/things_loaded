@@ -7,8 +7,8 @@ Synopsis
 The goal of this library is to provide methods to detect when images, assets,
 media, fonts and other things (i.e. embedded video) have been loaded.
 
-As a starting point it just supports load detection for images. Contributions
-to extend the library are welcome!
+As a starting point it currently supports load detection for images only.
+Contributions to extend the library are welcome!
 
 The image load detection is based upon the original ImagesLoaded script. It has
 been refactored and stripped down. With jQuery being the only requirement now.
