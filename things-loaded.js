@@ -20,13 +20,13 @@
 
     this.deferred = new $.Deferred();
 
-    this.addImage = function(element) {
+    this.add = function(element) {
       self.images.push(new LoadingImage(element));
     };
 
-    this.addImagesWithSelector = function(selector) {
+    this.addWithSelector = function(selector) {
       $(selector).find('img').each(function(k, v) {
-        self.addImage(v);
+        self.add(v);
       });
     };
 
