@@ -1,0 +1,86 @@
+
+Things Loaded
+-- Detect when images and other things have been loaded.
+
+Synopsis
+--------
+The goal of this library is to provide methods to detect when images, assets,
+media, fonts and other things (i.e. embedded video) have been loaded.
+
+As a starting point it just supports load detection for images. Contributions
+to extend the library are welcome!
+
+The image load detection is based upon the original ImagesLoaded script. It has
+been refactored and stripped down. With jQuery being the only requirement now.
+
+Including the Library
+---------------------
+<script src="/path/to/jquery.js"></script>
+<script src="/path/to/things-loaded.js"></script>
+
+Including the Library with RequireJS
+------------------------------------
+require.config({
+  paths: {
+    'things-loaded': 'path/to/things-loaded',
+  },
+  shim: {
+    'things-loaded': {
+      deps: ['jquery'],
+      exports: 'ThingsLoaded'
+    }
+  }
+});
+
+Usage
+-----
+var Checker = new ThingsLoaded.ImageChecker();
+
+$('.post').find('img').each(function(k, v) {
+  Checker.add(v);
+});
+var check = Checker.check();
+
+check.always(function() {
+  // All images have been either loaded or confirmed broken.
+});
+
+check.done(function() {
+  // All images have successfully loaded without any broken images.
+});
+
+check.fail(function() {
+  // All images have been loaded with at least one broken image.
+});
+
+check.progress(function() {
+  // An image has been loaded or found broken.
+  var result = image.isLoaded ? 'loaded' : 'broken';
+});
+
+Copyright & License
+-------------------
+ImagesLoaded is Copyright (c) 2013 David Persson if not otherwise stated. The
+code is distributed under the terms of the BSD 3-clause License. For the
+full license text see the LICENSE file.
+
+ImagesLoaded is orignally based on original code by David DeSandro. Thus where
+indicated portions of the code are Copyright (c) 2013 David DeSandro and
+distributed under the MIT license. For the full license text see the LICENSE
+file.
+
+Versions & Requirements
+-----------------------
+ImagesLoaded follows the rolling release development model. Code in the master
+branch should always considered to be stable. While code in the dev branch
+should be considered unstable or sometimes even expiremental.
+
+There are no versions as in the standard release development model but
+snapshots. The master branch may be tagged ("snapshotted") at any point in
+time when a significant point of development has been reached.
+
+Snapshots are schemed as follows:
+[current year, four digit].[index, zero based]
+
+jQuery is required to run the code.
+
