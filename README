@@ -39,7 +39,7 @@ var Checker = new ThingsLoaded.ImageChecker();
 $('.post').find('img').each(function(k, v) {
   Checker.add(v);
 });
-var check = Checker.check();
+var check = Checker.run();
 
 check.always(function() {
   // All images have been either loaded or confirmed broken.
