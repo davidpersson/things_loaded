@@ -6,7 +6,7 @@
  *
  * Copyright (c) 2013 David Persson <nperson@gmx.de>
  */
-(function($) {
+(function(window, $) {
   'use strict';
 
   var ThingsLoaded = {};
@@ -21,7 +21,7 @@
     this.deferred = new $.Deferred();
 
     this.add = function(element) {
-      self.images.push(new LoadingImage(element));
+      self.images.push(new ThingsLoaded.LoadingImage(element));
     };
 
     this.addWithSelector = function(selector) {
@@ -30,11 +30,7 @@
       });
     };
 
-    this.on = function(type, callback) {
-      self.element.on(type, callback);
-    };
-
-    this.check = function() {
+    this.run = function() {
       if (!self.images.length) {
         self.complete();
         return self.deferred;
@@ -83,7 +79,7 @@
     };
   };
 
-  ThingsLoaded._cachedLoadingImages = {};
+  ThingsLoaded.cachedLoadingImages = {};
 
   ThingsLoaded.LoadingImage = function(element) {
     var self = this;
@@ -153,6 +149,6 @@
     };
   };
 
-  return ThingsLoaded;
-}(jQuery));
+  window.ThingsLoaded = ThingsLoaded;
+}(window, jQuery));
 
