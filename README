@@ -16,13 +16,13 @@ been refactored and stripped down. With jQuery being the only requirement now.
 Including the Library
 ---------------------
 <script src="/path/to/jquery.js"></script>
-<script src="/path/to/things-loaded.js"></script>
+<script src="/path/to/thingsLoaded.js"></script>
 
 Including the Library with RequireJS
 ------------------------------------
 require.config({
   paths: {
-    'things-loaded': 'path/to/things-loaded',
+    'thingsLoaded': 'path/to/thingsLoaded',
   },
   shim: {
     'things-loaded': {
@@ -34,10 +34,10 @@ require.config({
 
 Usage
 -----
-var Checker = new ThingsLoaded.ImageChecker();
+var checker = new ThingsLoaded.ImageChecker();
 
 $('.post').find('img').each(function(k, v) {
-  Checker.add(v);
+  checker.add(v);
 });
 var check = Checker.run();
 
