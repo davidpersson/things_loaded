@@ -32,13 +32,24 @@ require.config({
   }
 });
 
-Usage
------
+Detect when Images have been loaded
+-----------------------------------
 var checker = new ThingsLoaded.ImageChecker();
 
+// You can pass the addFromElement method a DOM element or
+// a jQuery selector that is searched for image children.
+checker.addFromElement('.post');
+
+// Single image elements can be added like this.
 $('.post').find('img').each(function(k, v) {
-  checker.add(v);
+  checker.addElement(v);
 });
+
+// URL paths can be used for checking, too.
+checker.addUrl('/img/cat.png');
+
+// The run method will return a jQuery deferred which you
+// can evaluate as follows.
 var check = Checker.run();
 
 check.always(function() {
