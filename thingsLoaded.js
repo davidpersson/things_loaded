@@ -12,7 +12,7 @@
   var ThingsLoaded = {};
 
   ThingsLoaded.ImageChecker = function() {
-    var self = this;
+    var _this = this;
 
     this.images = [];
     this.checkedCount = 0;
@@ -20,60 +20,81 @@
 
     this.deferred = new $.Deferred();
 
-    this.add = function(element) {
-      self.images.push(new ThingsLoaded.LoadingImage(element));
+    this.addImage = function(image) {
+      _this.images.push(new ThingsLoaded.LoadingImage(image));
     };
 
-    this.addWithSelector = function(selector) {
-      $(selector).find('img').each(function(k, v) {
-        self.add(v);
+    this.addUrl = function(url) {
+      var image = new Image();
+      image.src = url;
+
+      _this.addImage(image);
+    };
+
+    this.addElement = function(element) {
+      var $element = $(element);
+
+      // Find img elements.
+      $element.find('img').each(function(k, v) {
+        _this.addImage(v);
       });
+
+      // Check if the element itself or any descendant for background images.
+      $element.find('*').add(element).each(function(k, el) {
+        var source = $(el).css('background-image');
+        var matches = source.match(/^url\((.*)\)/);
+
+        if (matches !== null) {
+          _this.addUrl(matches[1]);
+        }
+      });
+      return _this;
     };
 
     this.run = function() {
-      if (!self.images.length) {
-        self.complete();
-        return self.deferred;
+      if (!_this.images.length) {
+        _this.complete();
+        return _this.deferred;
       }
 
-      var onConfirm = function(image) {
-        self.progress(image);
-        self.checkedCount++;
+      var onConfirm = function(ev, image) {
+        _this.progress(image);
+        _this.checkedCount++;
 
-        if (self.checkedCount === self.images.length) {
-          self.complete();
+        if (_this.checkedCount === _this.images.length) {
+          _this.complete();
         }
       };
 
-      for (var i=0; i < self.images.length; i++) {
-        var loadingImage = self.images[i];
+      for (var i=0; i < _this.images.length; i++) {
+        var loadingImage = _this.images[i];
 
         loadingImage.one('confirm', onConfirm);
         loadingImage.check();
       }
 
-      return self.deferred;
+      return _this.deferred;
     };
 
     this.progress = function(image) {
-      self.hasAnyBroken = self.hasAnyBroken || !image.isLoaded;
+      _this.hasAnyBroken = _this.hasAnyBroken || !image.isLoaded;
 
       setTimeout(function() {
         // HACK - Chrome triggers event before object properties have changed. #83
-        self.deferred.notify(self, image);
+        _this.deferred.notify(_this, image);
       });
     };
 
     this.complete = function() {
-      self.isComplete = true;
+      _this.isComplete = true;
 
       setTimeout(function() {
         // HACK - another setTimeout so that confirm happens after progress
 
-        if (self.hasAnyBroken) {
-          self.deferred.reject(self);
+        if (_this.hasAnyBroken) {
+          _this.deferred.reject(_this);
         } else {
-          self.deferred.resolve(self);
+          _this.deferred.resolve(_this);
         }
       });
     };
@@ -82,70 +103,70 @@
   ThingsLoaded.cachedLoadingImages = {};
 
   ThingsLoaded.LoadingImage = function(element) {
-    var self = this;
+    var _this = this;
 
     this.element = element;
     this.proxied = undefined;
 
     this.check = function() {
       // First check cached any previous images that have same src.
-      var image = ThingsLoaded.cachedLoadingImages[self.element.src];
+      var image = ThingsLoaded.cachedLoadingImages[_this.element.src];
       if (image) {
-        self.useCached(image);
+        _this.useCached(image);
         return;
       }
 
       // Add this to cache.
-      ThingsLoaded.cachedLoadingImages[self.element.src] = self;
+      ThingsLoaded.cachedLoadingImages[_this.element.src] = _this;
 
       // If complete is true and browser supports natural sizes,
       // try to check for image status manually.
-      if (self.element.complete && self.element.naturalWidth !== undefined ) {
-        self.confirm(self.element.naturalWidth !== 0);
+      if (_this.element.complete && _this.element.naturalWidth !== undefined ) {
+        _this.confirm(_this.element.naturalWidth !== 0);
         return;
       }
 
       // If none of the checks above matched, simulate loading
       // on detached element.
       var unbindProxyEvents = function() {
-        self.proxied.onload = null;
-        self.proxied.onerror = null;
+        _this.proxied.onload = null;
+        _this.proxied.onerror = null;
       };
 
-      self.proxied = new Image();
-      self.proxied.onload = function() {
-        self.confirm(true);
+      _this.proxied = new Image();
+      _this.proxied.onload = function() {
+        _this.confirm(true);
         unbindProxyEvents();
       };
-      self.proxied.onerror = function() {
-        self.confirm(false);
+      _this.proxied.onerror = function() {
+        _this.confirm(false);
         unbindProxyEvents();
       };
-      self.proxied.src = self.element.src;
+      _this.proxied.src = _this.element.src;
     };
 
     this.useCached = function(image) {
       if (image.isConfirmed) {
-        self.confirm(image.isLoaded);
+        _this.confirm(image.isLoaded);
       } else {
         image.one('confirm', function(image) {
-          self.confirm(image.isLoaded);
+          _this.confirm(image.isLoaded);
         });
       }
     };
 
     this.on = function(type, callback) {
-      $(self.element).on(type, callback);
+      $(_this.element).on(type, callback);
     };
 
     this.one = function(type, callback) {
-      $(self.element).one(type, callback);
+      $(_this.element).one(type, callback);
     };
 
     this.confirm = function(isLoaded) {
-      self.isConfirmed = true;
-      self.isLoaded = isLoaded;
-      $(self.element).trigger('confirm', self);
+      _this.isConfirmed = true;
+      _this.isLoaded = isLoaded;
+      $(_this.element).trigger('confirm', _this);
     };
   };
 
