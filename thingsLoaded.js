@@ -84,7 +84,7 @@
         }
       };
 
-      for (var i=0; i < _this.items.length; i++) {
+      for (var i = 0; i < _this.items.length; i++) {
         var loadingImage = _this.items[i];
 
         loadingImage.one('confirm', onConfirm);
