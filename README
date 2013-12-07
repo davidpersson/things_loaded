@@ -96,10 +96,10 @@ ThingsLoaded is Copyright (c) 2013 David Persson if not otherwise stated. The
 code is distributed under the terms of the BSD 3-clause License. For the
 full license text see the LICENSE file.
 
-ThingsLoaded is orignally based on original code by David DeSandro. Thus where
-indicated portions of the code are Copyright (c) 2013 David DeSandro and
-distributed under the MIT license. For the full license text see the LICENSE
-file.
+The ImageChecker in ThingsLoaded was based on original code by David DeSandro.
+Thus where indicated portions of that code are Copyright (c) 2013 David DeSandro
+and distributed under the MIT license. For the full license text see the
+LICENSE file.
 
 Versions & Requirements
 -----------------------
