@@ -69,7 +69,7 @@ check.fail(function() {
   // All images have been loaded with at least one broken image.
 });
 
-check.progress(function() {
+check.progress(function(ev, image) {
   // An image has been loaded or found broken.
   var result = image.isLoaded ? 'loaded' : 'broken';
 });
