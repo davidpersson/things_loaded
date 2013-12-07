@@ -85,12 +85,10 @@
         }
       };
 
-      for (var i = 0; i < _this.items.length; i++) {
-        var loadingImage = _this.items[i];
-
+      $.each(_this.items, function(k, loadingImage) {
         $(loadingImage.element).one('confirm', onConfirm);
         loadingImage.check();
-      }
+      });
 
       return _this.deferred;
     };
