@@ -87,7 +87,7 @@
       for (var i = 0; i < _this.items.length; i++) {
         var loadingImage = _this.items[i];
 
-        loadingImage.one('confirm', onConfirm);
+        $(loadingImage.element).one('confirm', onConfirm);
         loadingImage.check();
       }
 
@@ -167,18 +167,10 @@
       if (image.isConfirmed) {
         _this.confirm(image.isLoaded);
       } else {
-        image.one('confirm', function(image) {
+        $(image.element).one('confirm', function(image) {
           _this.confirm(image.isLoaded);
         });
       }
-    };
-
-    this.on = function(type, callback) {
-      $(_this.element).on(type, callback);
-    };
-
-    this.one = function(type, callback) {
-      $(_this.element).one(type, callback);
     };
 
     this.confirm = function(isLoaded) {
