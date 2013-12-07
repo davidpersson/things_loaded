@@ -25,7 +25,7 @@ require.config({
     'thingsLoaded': 'path/to/thingsLoaded',
   },
   shim: {
-    'things-loaded': {
+    'thingsLoaded': {
       deps: ['jquery'],
       exports: 'ThingsLoaded'
     }
