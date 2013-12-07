@@ -1,6 +1,6 @@
 
 Things Loaded
--- Detect when images have been loaded and preload them.
+-- Detect when images have been loaded or preload them.
 
 Synopsis
 --------
