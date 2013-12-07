@@ -87,7 +87,7 @@ preloader.addUrl('/img/checkbox_hover.png');
 var preload = preloader.run();
 
 preload.always(function() {
-	// All images have been preloaded.
+  // All images have been preloaded.
 });
 
 Copyright & License
