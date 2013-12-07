@@ -205,6 +205,7 @@
     };
   };
 
+  // Export object.
   window.ThingsLoaded = ThingsLoaded;
 }(window, jQuery));
 
