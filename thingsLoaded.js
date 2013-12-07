@@ -5,6 +5,7 @@
  * license that can be found in the LICENSE file.
  *
  * Copyright (c) 2013 David Persson <nperson@gmx.de>
+ * Copyright (c) 2013 David DeSandro
  */
 (function(window, $) {
   'use strict';
