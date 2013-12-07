@@ -49,6 +49,10 @@ $('.post').find('img').each(function(k, v) {
 // URL paths can be used for checking, too.
 checker.addUrl('/img/cat.png');
 
+// The checker will also find any background images that
+// are set on the element.
+checker.addElement('.slide-with-background');
+
 // The run method will return a jQuery deferred which you
 // can evaluate as follows.
 var check = Checker.run();

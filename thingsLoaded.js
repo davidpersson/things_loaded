@@ -35,12 +35,14 @@
       _this.addImage(image);
     };
 
-    // Adds an image element.
+    // Adds an image element and/or an element's background.
     this.addElement = function(element) {
       _this.addImage(element);
+      _this.addBackgroundImage(element);
     };
 
-    // Add images that are children of given element or selector.
+    // Add image elements that are children of given element/selector and any
+    // background images that are found on the element itself or its children.
     this.addFromElement = function(element) {
       var $element = $(element);
 
@@ -51,14 +53,19 @@
 
       // Check if the element itself or any descendant for background images.
       $element.find('*').add(element).each(function(k, el) {
-        var source = $(el).css('background-image');
-        var matches = source.match(/^url\((.*)\)/);
-
-        if (matches !== null) {
-          _this.addUrl(matches[1]);
-        }
+        _this.addBackgroundImage(el);
       });
       return _this;
+    };
+
+    // Add an element's background image if it has one.
+    this.addBackgroundImage = function(element) {
+      var source = $(element).css('background-image');
+      var matches = source.match(/^url\((.*)\)/);
+
+      if (matches !== null) {
+        _this.addUrl(matches[1]);
+      }
     };
 
     // The main method.
