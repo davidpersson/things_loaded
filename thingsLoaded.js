@@ -181,6 +181,30 @@
     };
   };
 
+  // Image Preloader
+  ThingsLoaded.ImagePreloader = function () {
+    var _this = this;
+
+    this.items = [];
+
+    this.addUrl = function(url) {
+      _this.items.push(url);
+    };
+
+    this.run = function() {
+      var preloading = [];
+      var checker = new ThingsLoaded.ImageChecker();
+
+      $.each(_this.items, function(k, v) {
+        var image = new Image();
+        image.src = v;
+        preloading.push(image);
+        checker.addImage(image);
+      });
+      return checker.run();
+    };
+  };
+
   window.ThingsLoaded = ThingsLoaded;
 }(window, jQuery));
 

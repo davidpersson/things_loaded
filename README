@@ -1,13 +1,14 @@
 
 Things Loaded
--- Detect when images and other things have been loaded.
+-- Detect when images have been loaded and preload them.
 
 Synopsis
 --------
-The goal of this library is to provide methods to detect when images, assets,
-media, fonts and other things (i.e. embedded video) have been loaded.
+The goal of this library is to provide methods arround loading of images,
+assets, media, fonts and other things (i.e. embedded video). This includes
+methods to detect when a file has been loaded and methods to preload them.
 
-As a starting point it currently supports load detection for images only.
+As a starting point it currently support images only.
 Contributions to extend the library are welcome!
 
 The image load detection is based upon the original ImagesLoaded script. It has
@@ -67,6 +68,22 @@ check.fail(function() {
 check.progress(function() {
   // An image has been loaded or found broken.
   var result = image.isLoaded ? 'loaded' : 'broken';
+});
+
+Preload Images
+--------------
+var preloader = new ThingsLoaded.ImagePreloader();
+
+preloader.addUrl('/img/logo_hover.png');
+preloader.addUrl('/img/checkbox_hover.png');
+
+// Returns a jQuery deferred similiar to the one returned by the
+// checker's run method. It resolves when all images have been
+// preloaded.
+var preload = preloader.run();
+
+preload.always(function() {
+	// All images have been preloaded.
 });
 
 Copyright & License
