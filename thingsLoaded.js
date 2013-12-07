@@ -11,19 +11,23 @@
 
   var ThingsLoaded = {};
 
+  // Image Checker
+
   ThingsLoaded.ImageChecker = function() {
     var _this = this;
 
-    this.images = [];
+    this.items = [];
     this.checkedCount = 0;
     this.hasAnyBroken = false;
 
     this.deferred = new $.Deferred();
 
+    // Adds an image object.
     this.addImage = function(image) {
-      _this.images.push(new ThingsLoaded.LoadingImage(image));
+      _this.items.push(new ThingsLoaded.LoadingImage(image));
     };
 
+    // Adds an image using its URL.
     this.addUrl = function(url) {
       var image = new Image();
       image.src = url;
@@ -31,7 +35,13 @@
       _this.addImage(image);
     };
 
+    // Adds an image element.
     this.addElement = function(element) {
+      _this.addImage(element);
+    };
+
+    // Add images that are children of given element or selector.
+    this.addFromElement = function(element) {
       var $element = $(element);
 
       // Find img elements.
@@ -51,8 +61,9 @@
       return _this;
     };
 
+    // The main method.
     this.run = function() {
-      if (!_this.images.length) {
+      if (!_this.items.length) {
         _this.complete();
         return _this.deferred;
       }
@@ -61,13 +72,13 @@
         _this.progress(image);
         _this.checkedCount++;
 
-        if (_this.checkedCount === _this.images.length) {
+        if (_this.checkedCount === _this.items.length) {
           _this.complete();
         }
       };
 
-      for (var i=0; i < _this.images.length; i++) {
-        var loadingImage = _this.images[i];
+      for (var i=0; i < _this.items.length; i++) {
+        var loadingImage = _this.items[i];
 
         loadingImage.one('confirm', onConfirm);
         loadingImage.check();
@@ -80,7 +91,7 @@
       _this.hasAnyBroken = _this.hasAnyBroken || !image.isLoaded;
 
       setTimeout(function() {
-        // HACK - Chrome triggers event before object properties have changed. #83
+        // HACK - Chrome triggers event before object properties have changed.
         _this.deferred.notify(_this, image);
       });
     };
