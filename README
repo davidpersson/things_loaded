@@ -92,18 +92,18 @@ preload.always(function() {
 
 Copyright & License
 -------------------
-ImagesLoaded is Copyright (c) 2013 David Persson if not otherwise stated. The
+ThingsLoaded is Copyright (c) 2013 David Persson if not otherwise stated. The
 code is distributed under the terms of the BSD 3-clause License. For the
 full license text see the LICENSE file.
 
-ImagesLoaded is orignally based on original code by David DeSandro. Thus where
+ThingsLoaded is orignally based on original code by David DeSandro. Thus where
 indicated portions of the code are Copyright (c) 2013 David DeSandro and
 distributed under the MIT license. For the full license text see the LICENSE
 file.
 
 Versions & Requirements
 -----------------------
-ImagesLoaded follows the rolling release development model. Code in the master
+ThingsLoaded follows the rolling release development model. Code in the master
 branch should always considered to be stable. While code in the dev branch
 should be considered unstable or sometimes even expiremental.
 
