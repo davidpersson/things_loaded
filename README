@@ -55,7 +55,7 @@ checker.addElement('.slide-with-background');
 
 // The run method will return a jQuery deferred which you
 // can evaluate as follows.
-var check = Checker.run();
+var check = checker.run();
 
 check.always(function() {
   // All images have been either loaded or confirmed broken.
