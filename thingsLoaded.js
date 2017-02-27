@@ -166,7 +166,7 @@
       if (image.isConfirmed) {
         _this.confirm(image.isLoaded);
       } else {
-        $(image.element).one('confirm', function(image) {
+        $(image.element).one('confirm', function(ev, image) {
           _this.confirm(image.isLoaded);
         });
       }
