@@ -151,14 +151,14 @@
       };
 
       _this.proxied = new Image();
-      _this.proxied.onload = function() {
+      _this.proxied.addEventListener('load', function() {
         _this.confirm(true);
         unbindProxyEvents();
-      };
-      _this.proxied.onerror = function() {
+      });
+      _this.proxied.addEventListener('error', function() {
         _this.confirm(false);
         unbindProxyEvents();
-      };
+      });
       _this.proxied.src = _this.element.src;
     };
 
